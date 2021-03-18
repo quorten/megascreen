@@ -74,9 +74,9 @@ this.  Mine might be mounted upside-down, but whatever.
 
 ![PDS back-panel connectors](macse_pds.jpg)
 
-Here, you have a BNC connector for composite video output, and a DB-9
-female connector for for "component video" output.  I am not fully
-certain of the pinout, but an educated guess leads me to this
+Here, you have a 50 ohm BNC connector for composite video output, and
+a DB-9 female connector for for "component video" output.  I am not
+fully certain of the pinout, but an educated guess leads me to this
 hypothesis.
 
 ![DB-9 color coding and numbering](mega3_de9.png)

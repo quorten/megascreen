@@ -75,11 +75,11 @@ this.  Mine might be mounted upside-down, but whatever.
 ![PDS back-panel connectors](macse_pds.jpg)
 
 Here, you have a 50 ohm BNC connector for composite video output, and
-a DB-9 female connector for for "component video" output.  I am not
+a DE-9 female connector for for "component video" output.  I am not
 fully certain of the pinout, but an educated guess leads me to this
 hypothesis.
 
-![DB-9 color coding and numbering](mega3_de9.png)
+![DE-9 color coding and numbering](mega3_de9.svg)
 
 1. +5V
 2. VID
@@ -133,18 +133,18 @@ graphics card.  I'm transcribing full text from the chips in the
 photographs in the event that the lot numbers might be useful, '\n'
 denotes a newline.
 
-* U12: (M) MC74F08N \n XXAD8812
-* U11: Not connected
-* U10: MALAYSIA  423CF \n (TI) SN74LS365AN
-* U9: CRYSTAL OSCILLATOR \n M1200-70MHz \n MF ELECTRONICS CORP \n 08111 0188
-* U8: MC74F00N \n (M) I8649J
-* U7: 74F191 PC \n 0026 
-* U6: (MMI) PAL16R4ACN \n 8823 \n PAL8TI
-* U5: MC74F00N \n (M) I8649J
-* U4: (S) 74F74N \n FEH0737 \n 8809VB
-* U3: SN74ALS09N \n (M) 8307
-* U2: (MMI) PAL16L8ACN \n 8749 \n PAL 9
 * U1: MC74F245N \n (M) I 8629F
+* U2: (MMI) PAL16L8ACN \n 8749 \n PAL 9
+* U3: SN74ALS09N \n (M) 8307
+* U4: (S) 74F74N \n FEH0737 \n 8809VB
+* U5: MC74F00N \n (M) I8649J
+* U6: (MMI) PAL16R4ACN \n 8823 \n PAL8TI
+* U7: 74F191 PC \n 0026 
+* U8: MC74F00N \n (M) I8649J
+* U9: CRYSTAL OSCILLATOR \n M1200-70MHz \n MF ELECTRONICS CORP \n 08111 0188
+* U10: MALAYSIA  423CF \n (TI) SN74LS365AN
+* U11: Not connected
+* U12: (M) MC74F08N \n XXAD8812
 * U13: (TI) TMS34061FNL \n 8041011 \n LU8903
 * U14: (TI) TMS4461-12NL \n HHP 8813 1139S \n SINGAPORE
 * U15: (TI) TMS4461-12NL \n HHP 8813 1139S \n SINGAPORE

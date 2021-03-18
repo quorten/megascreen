@@ -192,6 +192,13 @@ Passives:
 * Capacitor connected to small ferrite bead, unknown value
 * **Large** heavy iron ring, off-board, on back-panel connector
 
+### Back-panel connector
+
+When installed, it looks like this from the inside of the Macintosh
+computer:
+
+![Back panel connector internal view](view_port_sm.jpg)
+
 ## More information
 
 Here are some links to magazines with more info.

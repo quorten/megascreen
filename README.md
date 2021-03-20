@@ -19,6 +19,13 @@ Apparently it's not a great card for "collector value," so to speak,
 so there is an unusual dearth of information on the card out on the
 Internet.
 
+## System Compatibility
+
+* Host machine hardware: Macintosh SE, PDS slot required.  Not
+  compatible with SE/30 PDS slot.
+
+* OS: System 6.0.5 is known to work.
+
 ## Getting started with the drivers
 
 The first thing you need to know is that unlike other video expansion
@@ -26,9 +33,23 @@ cards of the time, the Megascreen cards do not have any ROM chips on
 board.  The Macintosh drivers are fully responsible for loading the
 necessary firmware.  So, no software drivers, no Megascreen.
 
-I have yet to get my hands on a disk image of the original drivers
-floppy disk.  Until then, you can find a Megascreen 3 system file
-copied off of an installed hard drive here:
+Fortunately, we were able to capture a disk image of the drivers/tools
+floppy from what looks like new-old-stock Megascreen card of a
+slightly newer model.  These drivers are functionally compatible with
+the Megascreen 3.
+
+![Megascreen outer box photo](ms_box_outer.jpg)
+
+![Megascreen inner box photo](ms_box_inner.jpg)
+
+The floppy disk image is in DiskCopy 4.2 format, compressed in a
+StuffIt Expander archive.
+
+[MegaMac10.sit](MegaMac10.sit)
+
+Here is a Megascreen 3 system file copied off of an installed hard
+drive here.  I should verify if the contents of this are identical to
+the other.
 
 [MegaScreen.Bin](MegaScreen.Bin)
 
@@ -81,8 +102,8 @@ hypothesis.
 
 ![DE-9 color coding and numbering](mega3_de9.svg)
 
-1. +5V
-2. VID
+1. VID
+2. Video Shield
 3. HSYNC
 4. VSYNC
 6. GND
@@ -93,11 +114,16 @@ been tested!
 
 ![TTL to VGA adapter mock-up](ttl_vga_mock.png)
 
-WARNING: If the bottom leg resistor ever becomes disconnected, it is
-_possible_ that the circuit on the monitor end could be exposed to 5
-volts!  However, this would only ever happen in the event that the
-opposite end does not use proper termination at the characteristic
-impedance of 75 ohms, so you can argue that this is an unlikely risk.
+WARNING: If the bottom leg resistor ever becomes disconnected (like on
+a breadboard), it is _possible_ that the circuit on the monitor end
+could be exposed to 5 volts!  However, this would only ever happen in
+the event that the opposite end does not use proper termination at the
+characteristic impedance of 75 ohms, so you can argue that this is an
+unlikely risk.
+
+HSYNC and VSYNC should be wired straight up to the VGA connector
+without termination.  Generally speaking, using termination on 5 volt
+lines would consume an unreasonable amount of power.
 
 Also note that if you don't have a 75 ohm resistor on-hand, a 100 ohm
 resistor can be substituted as well.
@@ -105,6 +131,32 @@ resistor can be substituted as well.
 **Pro-tip:** By using inverting buffers, a similar circuit can be
 built to break out the internal Macintosh display signals to an
 external VGA monitor.
+
+Note that cheaper variations of this circuit design have been tested
+and shown to work reasonably well in practice:
+
+* You can eschew the buffers entirely because because the Megascreen
+  is capable of driving enough current to support the VGA connection.
+
+* Alternateively, instead of using buffers, you can use diodes.  The
+  purpose: If you want a white screen instead of a green screen, you'd
+  be soldering red, green, and blue together.  However, that would
+  invalidate the transmitter end's termination of the lines because
+  signal reflections would be able to travel freely to the bridged
+  lines.  Hence the use of diodes to sort of prevent this.
+
+* Since transmit only travels in one direction, when the monitor end
+  is properly terminated, the sole purpose of the terminator on the
+  transmitter end is to prevent reflections of noise signals that
+  might spontaneously emerge on the line.
+
+Now, here's the deal with TTL vs. ECL.  Take a look at the logic chips
+on the board, I have a chip inventory with datasheets for your
+reference.  These all look to be 5V TTL logic chips, there isn't
+anything to provide ECL drivers.  So, we definitely know that this is
+TTL video output.  However, due to the discussion of interfacing with
+VGA, it is fairly trivial to take a TTL video output and adapt it to
+be compatible with ECL video.
 
 ## Additional software utilities
 

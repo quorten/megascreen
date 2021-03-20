@@ -1,16 +1,16 @@
-# Megascreen documentation for the 21st century
+# MegaScreen documentation for the 21st century
 
 If you've come wandering over to here wondering about that glorified
 resistor between the power rails of your vintage Macintosh SE
 computer, you've come to the right place.
 
-![Large Megascreen 3 photo](megascreen3_lrg.jpg)
+![Large MegaScreen SE photo](megascreen3_lrg.jpg)
 
 Once upon a time, compact Macintosh computers had a vivid marketplace
 as competitive, moderately high-end graphics workstations.  The
-Megascreen was one of many offerings to provide accelerated graphics
+MegaScreen was one of many offerings to provide accelerated graphics
 capabilities on a large, high resolution external monitor.  Believe it
-or not, the Megascreen use to have actual monetary value, and
+or not, the MegaScreen use to have actual monetary value, and
 significant companies purchased it quantity to support their internal
 operations.
 
@@ -19,54 +19,87 @@ Apparently it's not a great card for "collector value," so to speak,
 so there is an unusual dearth of information on the card out on the
 Internet.
 
+## MegaScreen models
+
+All models of MegaScreen listed here:
+
+* Have 128 kilobytes of onboard VRAM
+
+* Supported NTSC video output
+
+* Supported expanding with a 68881 FPU math coprocessor
+
+* All use the same (or compatible) TI Graphics System Processor chip
+
+* And, therefore, are all compatible with the same software drivers
+
+These are the different models currently known:
+
+* MegaScreen Plus: Original model, designed for the Macintosh Plus.
+  Came with cooling fan upgrade.
+
+* MegaScreen II: Like MegaScreen Plus but uses a processor clip for
+  easiesr installation.  Added support for the Macintosh 512Ke.
+
+* MegaScreen SE: Code-named MegaScreen 3 on PCB, this was the first
+  MegaScreen designed for the Macintosh SE.
+
+* MegaScreen SE*M: Like MegaScreen SE but instead of having a
+  solder-in socket for the FPU math coprocessor option, it defines a
+  60-pin connector and shrinks the board to allow for plugging in
+  arbitrary expansion boards.
+
 ## System Compatibility
 
 * Host machine hardware: Macintosh SE, PDS slot required.  Not
   compatible with SE/30 PDS slot.
 
-* OS: System 6.0.5 is known to work.
+* OS: Anything newer than "System Software 2.0" (Macintosh System file
+  version >= 4.0) is claimed to work.  System 6 is tested to work.  I
+  don't know if System 7 is compatible.
 
 ## Getting started with the drivers
 
 The first thing you need to know is that unlike other video expansion
-cards of the time, the Megascreen cards do not have any ROM chips on
+cards of the time, the MegaScreen cards do not have any ROM chips on
 board.  The Macintosh drivers are fully responsible for loading the
-necessary firmware.  So, no software drivers, no Megascreen.
+necessary firmware.  So, no software drivers, no MegaScreen.
 
 Fortunately, we were able to capture a disk image of the drivers/tools
-floppy from what looks like new-old-stock Megascreen card of a
-slightly newer model.  These drivers are functionally compatible with
-the Megascreen 3.
+floppy from what looks like new-old-stock MegaScreen SE*M card.
 
-![Megascreen outer box photo](ms_box_outer.jpg)
+![MegaScreen outer box photo](ms_box_outer.jpg)
 
-![Megascreen inner box photo](ms_box_inner.jpg)
+![MegaScreen inner box photo](ms_box_inner.jpg)
 
 The floppy disk image is in DiskCopy 4.2 format, compressed in a
 StuffIt Expander archive.
 
 [MegaMac10.sit](MegaMac10.sit)
 
-Here is a Megascreen 3 system file copied off of an installed hard
-drive here.  I should verify if the contents of this are identical to
-the other.
-
-[MegaScreen.Bin](MegaScreen.Bin)
-
-It's MacBinary, so if you use ZTerm and ZMODEM to copy it over to your
-vintage Macintosh, it should unpack just fine and be all ready to go.
-
 Now that you've got that on, when you boot your Macintosh, you should
-see a Megascreen Manager startup window of a sort.  Here's where the
-firmware loading magic happens.  Also, apparently the Megascreen 3
+see a MegaScreen Manager startup window of a sort.  Here's where the
+firmware loading magic happens.  Also, apparently the MegaScreen SE
 hardware has some simple and cheap logic to see if a monitor is
 actually connected, and if it's not, it will adapt to limit you to the
 regular Macintosh desktop.
 
+Note that the original version of the software drivers, MegaBoot, did
+not support using both the Macintosh internal screen and the
+MegaScreen at the same time.  For this reason, you probably don't want
+a copy of it except for extreme nostalgia, and besides, this
+repository doesn't have a copy of the original drivers either.
+
 ## Connecting your external monitor
 
-So how do connect your Megascreen to a modern monitor?  Or... at least
+So how do connect your MegaScreen to a modern monitor?  Or... at least
 a VGA computer monitor?
+
+Back in the days when the MegaScreen products were commercially sold,
+they came with an external interface board that plugged into the
+MegaScreen.  This was apparently a rather large board with several
+video connector options that inhibited the portability of your
+Macintosh.
 
 When I contacted [Brian Girvin, former VP of Engineering for
 MegaGraphics](https://www.linkedin.com/in/briangirvin/), he had the
@@ -91,14 +124,20 @@ info following to offer:
 
 Well, in any case, take a look at the back panel of your Macintosh SE.
 You should see some PDS output connectors that look something like
-this.  Mine might be mounted upside-down, but whatever.
+this.  Mine is mounted upside-down, but whatever.
 
 ![PDS back-panel connectors](macse_pds.jpg)
 
 Here, you have a 50 ohm BNC connector for composite video output, and
-a DE-9 female connector for for "component video" output.  I am not
-fully certain of the pinout, but an educated guess leads me to this
-hypothesis.
+a DE-9 female connector for for "component video" output.
+
+To connect composite video and get the highest possible resolution,
+you should use an S-Video plug on the monitor end.  Most modern
+televisions and composite video input devices have filtering
+electronics that limit the bandwidth on regular composite video to be
+less than that of S-Video.
+
+This is the pinout of the DE-9 connector:
 
 ![DE-9 color coding and numbering](mega3_de9.svg)
 
@@ -109,8 +148,7 @@ hypothesis.
 6. GND
 
 All other pins are unconnected.  You can use a rather simple circuit
-that looks something like this.  PLEASE NOTE: This circuit has not
-been tested!
+that looks something like this.
 
 ![TTL to VGA adapter mock-up](ttl_vga_mock.png)
 
@@ -135,7 +173,7 @@ external VGA monitor.
 Note that cheaper variations of this circuit design have been tested
 and shown to work reasonably well in practice:
 
-* You can eschew the buffers entirely because because the Megascreen
+* You can eschew the buffers entirely because because the MegaScreen
   is capable of driving enough current to support the VGA connection.
 
 * Alternateively, instead of using buffers, you can use diodes.  The
@@ -180,7 +218,7 @@ FACE DOWN|
 
 ### Chip inventory
 
-Here is an itemized inventory of the chips on the Megascreen 3
+Here is an itemized inventory of the chips on the MegaScreen SE
 graphics card.  I'm transcribing full text from the chips in the
 photographs in the event that the lot numbers might be useful, '\n'
 denotes a newline.
@@ -250,6 +288,11 @@ When installed, it looks like this from the inside of the Macintosh
 computer:
 
 ![Back panel connector internal view](view_port_sm.jpg)
+
+## Company history
+
+Initially, the name of the company behind the MegaScreen was
+Micrographic Images.  They were later renamed to MegaGraphics.
 
 ## More information
 

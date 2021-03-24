@@ -188,6 +188,19 @@ and shown to work reasonably well in practice:
   transmitter end is to prevent reflections of noise signals that
   might spontaneously emerge on the line.
 
+* How much power/current can the MegaScreen source or sink?  The line
+  driver chips run at 5 volts and, according to their datasheets, they
+  can supply a maximum of 1 mA or 5 mA current.  I'd have to look at
+  the board in more detail, but experimental measurements indicated a
+  output impedance on the VID signal of approximately 5 kilo-ohms,
+  which is consistent with the datasheet current limits.
+
+  So... even though you don't have to worry about sending too much
+  voltage to your VGA interface, you might have to worry about
+  stressing the MegaScreen's line drivers too much.  I really don't
+  know, but being on the safe side would mean adding more resistance
+  at the expense of VGA signal strength.
+
 Now, here's the deal with TTL vs. ECL.  Take a look at the logic chips
 on the board, I have a chip inventory with datasheets for your
 reference.  These all look to be 5V TTL logic chips, there isn't
@@ -216,7 +229,7 @@ COPROCESSOR OPTION
 BUFREMA  
 FACE DOWN|
 
-### Chip inventory
+### Chip inventory, MegaScreen SE
 
 Here is an itemized inventory of the chips on the MegaScreen SE
 graphics card.  I'm transcribing full text from the chips in the
@@ -247,26 +260,28 @@ denotes a newline.
 Datasheets, 7400 series:
 
 * MC74F00N: Quad 2-Input NAND Gate Fast Schottky TTL  
-  Visited 2021-03-17: https://pdf1.alldatasheet.com/datasheet-pdf/view/3991/MOTOROLA/MC74F00N/+2J82uplRMROLDdRHDCMYvZ+/datasheet.pdf
+  Visited 2021-03-17: http://pdf.datasheetcatalog.com/datasheet/motorola/MC54.pdf
 * MC74F08N: Quad 2-Input And Gate Fast Schottky TTL  
   Visited 2021-03-17: http://pdf.datasheetcatalog.com/datasheet/motorola/MC54F08.pdf
 * SN74ALS09N: Quad 2-input Positive And Gates with Open-Collector Outputs  
   Visited 2021-03-17: https://www.ti.com/lit/ds/symlink/sn74als09.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1616036024428
 * 74F74N: Dual Positive Edge-Triggered Flip-Flop  
-  Visited 2021-03-17: https://www.ti.com/lit/ds/symlink/sn74f74.pdf?ts=1616035930796
+  Visited 2021-03-17: https://www.ti.com/lit/ds/symlink/sn74f74.pdf?ts=1616035930796  
+  N.B.: Manufacturer does not match Signetics.
 * 74F299N: 8-bit universal shift/storage register (3-state)  
-  Visited 2021-03-17: https://pdf1.alldatasheet.com/datasheet-pdf/view/15414/PHILIPS/N74F299N/+04425UL.hKpRudSwzLzHpZ+/datasheet.pdf
+  Visited 2021-03-17: http://pdf.datasheetcatalog.com/datasheet/motorola/MC74F299DW.pdf  
+  N.B.: Manufacturer does not match Signetics.
 * 74F191PC: Up/down binary counter with reset and ripple clock  
   Visited 2021-03-17: https://media.digikey.com/pdf/Data%20Sheets/Fairchild%20PDFs/74F191,Rev.April07.pdf
 * MC74F245N: Octal Bidirectional Bus Transceiver With 3-State Inputs/Outputs  
-  Visited 2021-03-17: https://pdf1.alldatasheet.com/datasheet-pdf/view/168623/MOTOROLA/MC74F245N/+0WJ745VKMyOyRx.eyI.DODGHb+/datasheet.pdf
+  Visited 2021-03-17: http://pdf.datasheetcatalog.com/datasheet/motorola/MC74F245N.pdf
 * SN74LS365AN: Non-inverting hex bus drivers with 3-state outputs  
   Visited 2021-03-17: https://www.ti.com/lit/ds/symlink/sn74ls365a.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1616035371704
 
 Datasheets, Texas Instruments graphics chips:
 
 * TMS34061FNL: Graphics System Processor (nearest datasheet match)  
-  Visited 2021-03-17: https://pdf1.alldatasheet.com/datasheet-pdf/view/83006/TI/TMS34010-60/+531QJUPGZyMTBN-BBhEY+/datasheet.pdf
+  Visited 2021-03-17: https://4donline.ihs.com/images/VipMasterIC/IC/TXII/TXIIS146289/TXIIS146289-1.pdf?hkey=FB3F1F3F2A09A989A6BF9D772C3B8264
 * TMS4461-12NL: Fast Page Dual-Port Video DRAM, 64Kx4, 120ns, NMOS, PDIP24  
   Visited 2021-03-17: https://4donline.ihs.com/images/VipMasterIC/IC/TXII/TXIID099/TXIID099-4-27.pdf?hkey=FB3F1F3F2A09A989A6BF9D772C3B8264
 
@@ -282,12 +297,52 @@ Passives:
 * Capacitor connected to small ferrite bead, unknown value
 * **Large** heavy iron ring, off-board, on back-panel connector
 
+### Chip inventory, MegaScreen SE*M
+
+Work in progress!
+
+The chip inventory of the MegaScreen SE*M is largely the same as that
+of the MegaScreen SE, but some glue logic chip-saving simplifications
+were performed.
+
+* U2: MC74F04N
+* U3: SN74ALS09N
+* PAL8 U4: PAL16R4ACN
+* U5: MC74F??N
+* PAL9 U6: PAL16L8ACN
+* U7: SN74LS365AN
+* U8: ???
+* U9: VRAM, probably same type
+* U10: VRAM, probably same type
+* U11: VRAM, probably same type
+* U12: VRAM, probably same type
+* U13: Graphics System Processor, probably same type
+* U14: CRYSTAL OSCILLATOR \n M1200-70MHz \n MF ELECTRONICS CORP \n ???
+* U15: MC74F04N
+* U16: (S) 74F576N (???)
+
 ### Back-panel connector
 
 When installed, it looks like this from the inside of the Macintosh
 computer:
 
 ![Back panel connector internal view](view_port_sm.jpg)
+
+The colored wires in the PDS connector terminate on the MegaScreen
+board in this order:
+
+1. Black
+2. White
+3. Red
+4. Green
+5. Orange (or Brown)
+6. Blue
+
+The pinout of the DE-9 connector was noted previously.  The BNC video
+connector is wired with black (ground) and orange (signal).
+
+Many of these lines are wired in series with one of the resistors
+onboard.
 
 ## Company history
 
